@@ -58,7 +58,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       height: 50,
                       child: RaisedButton(
                         color: Colors.pinkAccent,
-                        child: Text("Cadastrar"),
+                        child: Text("Cadastrar "),
                         onPressed: () {},
                         textColor: Colors.white,
                       ),
