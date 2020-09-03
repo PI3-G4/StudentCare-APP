@@ -25,112 +25,126 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20.0)));
   final focusNodePassword = FocusNode();
   final focusNodeEmail = FocusNode();
+  final logoImage = SizedBox(
+    child: Image(image: AssetImage('assets/images/logo.png')),
+    width: 150,
+  );
+  final title = Text(
+    'StudentCare',
+    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+  );
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Observer(
-          builder: (_) => Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      child: Image(image: AssetImage('assets/images/logo.png')),
-                      width: 150,
-                    ),
-                    spaceBetweenShort,
-                    Text(
-                      'StudentCare',
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    spaceBetweenBig,
-                    TextField(
-                      autofocus: false,
-                      onChanged: (value) {
-                        controller.email = value;
-                        controller.isEmailValid();
-                      },
-                      decoration: InputDecoration(
-                          labelText: 'E-mail',
-                          errorText: controller.errorEmail,
-                          prefixIcon: Icon(Icons.email),
-                          border: outlineInputBorder),
-                      keyboardType: TextInputType.emailAddress,
-                      onEditingComplete: () {
-                        FocusScope.of(context).requestFocus(focusNodePassword);
-                      },
-                    ),
-                    spaceBetweenBig,
-                    TextField(
-                      autofocus: false,
-                      onChanged: (value) {
-                        controller.password = value;
-                        controller.isPasswordValid();
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        errorText: controller.errorPassword,
-                        prefixIcon: Icon(Icons.lock),
-                        border: outlineInputBorder,
-                        suffixIcon: GestureDetector(
-                          dragStartBehavior: DragStartBehavior.down,
-                          onTap: () {
-                            setState(() {
-                              hidePassword = !hidePassword;
-                            });
-                          },
-                          child: Icon(hidePassword
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                        ),
-                      ),
-                      obscureText: hidePassword,
-                      focusNode: focusNodePassword,
-                    ),
-                    spaceBetweenBig,
-                    GFButton(
-                        onPressed: (controller.errorEmail == null &&
-                                controller.errorPassword == null &&
-                                controller.email.isNotEmpty &&
-                                controller.password.isNotEmpty)
-                            ? () {}
-                            : null,
-                        text: 'Login como Estudante',
-                        shape: GFButtonShape.pills,
-                        color: GFColors.PRIMARY,
-                        size: GFSize.LARGE),
-                    spaceBetweenMedium,
-                    GFButton(
-                        onPressed: (controller.errorEmail == null &&
-                                controller.errorPassword == null &&
-                                controller.email.isNotEmpty &&
-                                controller.password.isNotEmpty)
-                            ? () {}
-                            : null,
-                        text: 'Login como Insituição',
-                        shape: GFButtonShape.pills,
-                        color: GFColors.SECONDARY,
-                        size: GFSize.LARGE),
-                    spaceBetweenBig,
-                    GFButton(
-                        onPressed: () {},
-                        text: 'Cadastre-se como insituição',
-                        color: GFColors.DARK,
-                        type: GFButtonType.transparent,
-                        shape: GFButtonShape.pills,
-                        size: GFSize.LARGE),
-                  ],
+    return Scaffold(
+      body: Observer(
+        builder: (_) {
+          final textFieldEmail = TextField(
+            autofocus: false,
+            onChanged: (value) {
+              controller.email = value;
+              controller.isEmailValid();
+            },
+            decoration: InputDecoration(
+                labelText: 'E-mail',
+                errorText: controller.errorEmail,
+                prefixIcon: Icon(Icons.email),
+                border: outlineInputBorder),
+            keyboardType: TextInputType.emailAddress,
+            onEditingComplete: () {
+              FocusScope.of(context).requestFocus(focusNodePassword);
+            },
+          );
+
+          final textFieldPassword = TextField(
+            autofocus: false,
+            onChanged: (value) {
+              controller.password = value;
+              controller.isPasswordValid();
+            },
+            decoration: InputDecoration(
+              labelText: 'Senha',
+              errorText: controller.errorPassword,
+              prefixIcon: Icon(Icons.lock),
+              border: outlineInputBorder,
+              suffixIcon: GestureDetector(
+                dragStartBehavior: DragStartBehavior.down,
+                onTap: () {
+                  setState(() {
+                    hidePassword = !hidePassword;
+                  });
+                },
+                child: Icon(
+                    hidePassword ? Icons.visibility : Icons.visibility_off),
+              ),
+            ),
+            obscureText: hidePassword,
+            focusNode: focusNodePassword,
+          );
+
+          final buttonStudent = GFButton(
+              onPressed: (controller.errorEmail == null &&
+                      controller.errorPassword == null &&
+                      controller.email.isNotEmpty &&
+                      controller.password.isNotEmpty)
+                  ? () {}
+                  : null,
+              text: 'Login como Estudante',
+              shape: GFButtonShape.pills,
+              color: GFColors.PRIMARY,
+              size: GFSize.LARGE);
+
+          final buttonInstitution = GFButton(
+              onPressed: (controller.errorEmail == null &&
+                      controller.errorPassword == null &&
+                      controller.email.isNotEmpty &&
+                      controller.password.isNotEmpty)
+                  ? () {}
+                  : null,
+              text: 'Login como Insituição',
+              shape: GFButtonShape.pills,
+              color: GFColors.SECONDARY,
+              size: GFSize.LARGE);
+
+          final buttonSignUp = GFButton(
+              onPressed: () {
+                Modular.to.pushNamed('/new_instituition');
+              },
+              text: 'Cadastre-se como insituição',
+              color: GFColors.DARK,
+              type: GFButtonType.transparent,
+              shape: GFButtonShape.pills,
+              size: GFSize.LARGE);
+
+          return SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      logoImage,
+                      spaceBetweenShort,
+                      title,
+                      spaceBetweenBig,
+                      textFieldEmail,
+                      spaceBetweenBig,
+                      textFieldPassword,
+                      spaceBetweenBig,
+                      buttonStudent,
+                      spaceBetweenMedium,
+                      buttonInstitution,
+                      spaceBetweenBig,
+                      buttonSignUp,
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
