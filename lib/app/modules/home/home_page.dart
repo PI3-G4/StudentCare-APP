@@ -4,6 +4,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studentcare/Util/MySharedPreferences.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -116,6 +118,52 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               shape: GFButtonShape.pills,
               size: GFSize.LARGE);
 
+          final ipConfig = GFIconButton(
+              onPressed: () async {
+                controller.ipSaved = await MySharedPreferences.getIP();
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (_) => AlertDialog(
+                    title: Text("Defina o  IP da API"),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    content: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                                labelText: 'IP atual: ${controller.ipSaved}',
+                                hintText: '192.168.0.101'),
+                            onChanged: (value) =>
+                                controller.ipAPItoSave = value,
+                          ),
+                        )
+                      ],
+                    ),
+                    actions: [
+                      GFButton(
+                          onPressed: () {
+                            Modular.to.pop();
+                          },
+                          text: 'Cancelar'),
+                      GFButton(
+                          onPressed: () async {
+                            MySharedPreferences.saveIP(controller.ipAPItoSave);
+                            controller.ipSaved =
+                                await MySharedPreferences.getIP();
+                            Modular.to.pop();
+                          },
+                          text: 'Salvar'),
+                    ],
+                  ),
+                );
+              },
+              icon: Icon(Icons.settings),
+              shape: GFIconButtonShape.circle,
+              color: GFColors.DARK,
+              size: GFSize.SMALL);
+
           return SafeArea(
             child: Center(
               child: SingleChildScrollView(
@@ -138,6 +186,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       buttonInstitution,
                       spaceBetweenBig,
                       buttonSignUp,
+                      spaceBetweenMedium,
+                      ipConfig,
                     ],
                   ),
                 ),
