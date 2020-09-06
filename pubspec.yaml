@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  requests: ^3.3.0
+  connectivity: ^0.4.9+2
   bloc_pattern: ^2.3.2
   rxdart: ^0.24.1
   dio: ^3.0.10

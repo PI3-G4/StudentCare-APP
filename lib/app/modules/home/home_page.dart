@@ -4,7 +4,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:requests/requests.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studentcare/Components/Alert.dart';
+import 'package:studentcare/Util/Connection.dart';
 import 'package:studentcare/Util/MySharedPreferences.dart';
 import 'home_controller.dart';
 
@@ -101,7 +104,65 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       controller.errorPassword == null &&
                       controller.email.isNotEmpty &&
                       controller.password.isNotEmpty)
-                  ? () {}
+                  ? () async {
+                      if (controller.isEmailValid() &&
+                          controller.isPasswordValid()) {
+                        if (await Connection.isConnected()) {
+                          controller.ipSaved = await MySharedPreferences.getIP();
+                          var response;
+                          try {
+                            response = await Requests.post(
+                                'http://${controller.ipSaved}/institution-login',
+                                body: {
+                                  'email': controller.email,
+                                  'password': controller.password
+                                },
+                                bodyEncoding: RequestBodyEncoding.JSON);
+                          } catch (e) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => Alert(
+                                    content:
+                                        'http://${controller.ipSaved}/institution-login\n ${e.toString()}',
+                                    title: 'Erro'));
+                          }
+
+                          if (response.statusCode == 200) {
+                            Modular.to.pushNamed('/instituition');
+                          } else if (response.statusCode == 400) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => Alert(
+                                    content: 'Ocorreu um erro com os dados',
+                                    title: 'Erro'));
+                          } else if (response.statusCode == 500) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => Alert(
+                                    content: 'Ocorreu um erro no servidor',
+                                    title: 'Erro'));
+                          } else {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => Alert(
+                                    content: 'Ocorreu um erro desconhecido',
+                                    title: 'Erro'));
+                          }
+                        } else {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (_) => Alert(
+                                  content:
+                                      'Você precisa de conexão com a internet para acessar',
+                                  title: 'Atenção!'));
+                        }
+                      }
+                    }
                   : null,
               text: 'Login como Insituição',
               shape: GFButtonShape.pills,
