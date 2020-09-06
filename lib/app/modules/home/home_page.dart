@@ -92,7 +92,65 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       controller.errorPassword == null &&
                       controller.email.isNotEmpty &&
                       controller.password.isNotEmpty)
-                  ? () {}
+                  ? () async {
+                    if (controller.isEmailValid() &&
+                          controller.isPasswordValid()) {
+                        if (await Connection.isConnected()) {
+                          controller.ipSaved = await MySharedPreferences.getIP();
+                          var response;
+                          try {
+                            response = await Requests.post(
+                                'http://${controller.ipSaved}/student-login',
+                                body: {
+                                  'email': controller.email,
+                                  'password': controller.password
+                                },
+                                bodyEncoding: RequestBodyEncoding.JSON);
+                          } catch (e) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => Alert(
+                                    content:
+                                        'http://${controller.ipSaved}/student-login\n ${e.toString()}',
+                                    title: 'Erro'));
+                          }
+
+                          if (response.statusCode == 200) {
+                            Modular.to.pushNamed('/instituition');
+                          } else if (response.statusCode == 400) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => Alert(
+                                    content: 'Ocorreu um erro com os dados',
+                                    title: 'Erro'));
+                          } else if (response.statusCode == 500) {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => Alert(
+                                    content: 'Ocorreu um erro no servidor',
+                                    title: 'Erro'));
+                          } else {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                builder: (_) => Alert(
+                                    content: 'Ocorreu um erro desconhecido',
+                                    title: 'Erro'));
+                          }
+                        } else {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (_) => Alert(
+                                  content:
+                                      'Você precisa de conexão com a internet para acessar',
+                                  title: 'Atenção!'));
+                        }
+                      }
+                  }
                   : null,
               text: 'Login como Estudante',
               shape: GFButtonShape.pills,
