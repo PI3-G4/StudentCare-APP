@@ -5,7 +5,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:requests/requests.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studentcare/Components/Alert.dart';
 import 'package:studentcare/Util/Connection.dart';
 import 'package:studentcare/Util/MySharedPreferences.dart';
@@ -93,10 +92,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       controller.email.isNotEmpty &&
                       controller.password.isNotEmpty)
                   ? () async {
-                    if (controller.isEmailValid() &&
+                      if (controller.isEmailValid() &&
                           controller.isPasswordValid()) {
                         if (await Connection.isConnected()) {
-                          controller.ipSaved = await MySharedPreferences.getIP();
+                          controller.ipSaved =
+                              await MySharedPreferences.getIP();
                           var response;
                           try {
                             response = await Requests.post(
@@ -150,7 +150,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                   title: 'Atenção!'));
                         }
                       }
-                  }
+                    }
                   : null,
               text: 'Login como Estudante',
               shape: GFButtonShape.pills,
@@ -166,7 +166,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       if (controller.isEmailValid() &&
                           controller.isPasswordValid()) {
                         if (await Connection.isConnected()) {
-                          controller.ipSaved = await MySharedPreferences.getIP();
+                          controller.ipSaved =
+                              await MySharedPreferences.getIP();
                           var response;
                           try {
                             response = await Requests.post(
