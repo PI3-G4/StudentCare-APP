@@ -1,3 +1,5 @@
+import 'info/info_controller.dart';
+import 'students/students_controller.dart';
 import 'institution_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -6,6 +8,8 @@ import 'institution_page.dart';
 class InstitutionModule extends ChildModule {
   @override
   List<Bind> get binds => [
+        $InfoController,
+        $StudentsController,
         $InstitutionController,
       ];
 
