@@ -117,7 +117,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           }
 
                           if (response.statusCode == 200) {
-                            Modular.to.pushNamed('/instituition');
+                            Modular.to.popAndPushNamed('/instituition');
                           } else if (response.statusCode == 400) {
                             showDialog(
                                 context: context,
@@ -188,7 +188,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           }
 
                           if (response.statusCode == 200) {
-                            Modular.to.pushNamed('/instituition');
+                            Modular.to.popAndPushNamed('/instituition');
                           } else if (response.statusCode == 400) {
                             showDialog(
                                 context: context,

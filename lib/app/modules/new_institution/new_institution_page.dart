@@ -138,7 +138,7 @@ class _NewInstitutionPageState
                           }
 
                           if (response.statusCode == 201) {
-                            Modular.to.pushNamed('/home');
+                            Modular.to.pushNamed('/');
                           } else if (response.statusCode == 400) {
                             showDialog(
                                 context: context,
