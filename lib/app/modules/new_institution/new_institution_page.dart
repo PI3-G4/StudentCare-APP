@@ -10,6 +10,7 @@ import 'package:requests/requests.dart';
 import 'package:studentcare/Components/Alert.dart';
 import 'package:studentcare/Util/Connection.dart';
 import 'package:studentcare/Util/MySharedPreferences.dart';
+import '../../app_controller.dart';
 import 'new_institution_controller.dart';
 
 class NewInstitutionPage extends StatefulWidget {
@@ -105,6 +106,8 @@ class _NewInstitutionPageState
             focusNode: focusNodePassword,
           );
 
+          final homeController = Modular.get<AppController>();
+
           final buttonInstitution = GFButton(
               onPressed: (controller.errorEmail == null &&
                       controller.errorPassword == null &&
@@ -116,11 +119,11 @@ class _NewInstitutionPageState
                       if (controller.isEmailValid() &&
                           controller.isPasswordValid()) {
                         if (await Connection.isConnected()) {
-                          final ipSaved = await MySharedPreferences.getIP();
+                          homeController.ipSaved = await MySharedPreferences.getIP();
                           var response;
                           try {
                             response = await Requests.post(
-                                'http://$ipSaved/institution',
+                                'http://${homeController.ipSaved}. /institution',
                                 body: {
                                   'name': controller.name,
                                   'email': controller.email,
@@ -133,7 +136,7 @@ class _NewInstitutionPageState
                                 barrierDismissible: true,
                                 builder: (_) => Alert(
                                     content:
-                                        'http://$ipSaved/institution\n ${e.toString()}',
+                                        'http://${homeController.ipSaved}/institution\n ${e.toString()}',
                                     title: 'Erro'));
                           }
 

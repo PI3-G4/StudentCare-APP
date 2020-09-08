@@ -2,14 +2,14 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:studentcare/app/modules/institution/info/info_controller.dart';
-import 'package:studentcare/app/modules/institution/institution_module.dart';
+import 'package:studentcare/app/modules/institution/info/info_module.dart';
 
 void main() {
-  initModule(InstitutionModule());
+  initModule(InfoModule());
   // InfoController info;
   //
   setUp(() {
-    //     info = InstitutionModule.to.get<InfoController>();
+    //     info = InfoModule.to.get<InfoController>();
   });
 
   group('InfoController Test', () {

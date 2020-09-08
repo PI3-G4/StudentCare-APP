@@ -98,12 +98,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       if (controller.isEmailValid() &&
                           controller.isPasswordValid()) {
                         if (await Connection.isConnected()) {
-                          controller.ipSaved =
+                          homeController.ipSaved =
                               await MySharedPreferences.getIP();
                           var response;
                           try {
                             response = await Requests.post(
-                                'http://${controller.ipSaved}/student-login',
+                                'http://${homeController.ipSaved}/student-login',
                                 body: {
                                   'email': controller.email,
                                   'password': controller.password
@@ -115,7 +115,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                 barrierDismissible: true,
                                 builder: (_) => Alert(
                                     content:
-                                        'http://${controller.ipSaved}/student-login\n ${e.toString()}',
+                                        'http://${homeController.ipSaved}/student-login\n ${e.toString()}',
                                     title: 'Erro'));
                           }
 
@@ -174,12 +174,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       if (controller.isEmailValid() &&
                           controller.isPasswordValid()) {
                         if (await Connection.isConnected()) {
-                          controller.ipSaved =
+                          homeController.ipSaved =
                               await MySharedPreferences.getIP();
                           var response;
                           try {
                             response = await Requests.post(
-                                'http://${controller.ipSaved}/institution-login',
+                                'http://${homeController.ipSaved}/institution-login',
                                 body: {
                                   'email': controller.email,
                                   'password': controller.password
@@ -191,7 +191,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                 barrierDismissible: true,
                                 builder: (_) => Alert(
                                     content:
-                                        'http://${controller.ipSaved}/institution-login\n ${e.toString()}',
+                                        'http://${homeController.ipSaved}/institution-login\n ${e.toString()}',
                                     title: 'Erro'));
                           }
 
@@ -254,7 +254,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
           final ipConfig = GFIconButton(
               onPressed: () async {
-                controller.ipSaved = await MySharedPreferences.getIP();
+                homeController.ipSaved = await MySharedPreferences.getIP();
                 showDialog(
                   context: context,
                   barrierDismissible: true,
@@ -267,10 +267,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                                labelText: 'IP atual: ${controller.ipSaved}',
+                                labelText: 'IP atual: ${homeController.ipSaved}',
                                 hintText: '192.168.0.101'),
                             onChanged: (value) =>
-                                controller.ipAPItoSave = value,
+                                homeController.ipAPItoSave = value,
                           ),
                         )
                       ],
@@ -283,8 +283,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           text: 'Cancelar'),
                       GFButton(
                           onPressed: () async {
-                            MySharedPreferences.saveIP(controller.ipAPItoSave);
-                            controller.ipSaved =
+                            MySharedPreferences.saveIP(homeController.ipAPItoSave);
+                            homeController.ipSaved =
                                 await MySharedPreferences.getIP();
                             Modular.to.pop();
                           },

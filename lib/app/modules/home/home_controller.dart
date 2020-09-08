@@ -20,12 +20,6 @@ abstract class _HomeControllerBase with Store {
   @observable
   String errorPassword;
 
-  @observable
-  String ipAPItoSave;
-
-  @observable
-  String ipSaved;
-
   @action
   bool isEmailValid() {
     if (email.isNotEmpty) {

@@ -79,36 +79,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$ipAPItoSaveAtom = Atom(name: '_HomeControllerBase.ipAPItoSave');
-
-  @override
-  String get ipAPItoSave {
-    _$ipAPItoSaveAtom.reportRead();
-    return super.ipAPItoSave;
-  }
-
-  @override
-  set ipAPItoSave(String value) {
-    _$ipAPItoSaveAtom.reportWrite(value, super.ipAPItoSave, () {
-      super.ipAPItoSave = value;
-    });
-  }
-
-  final _$ipSavedAtom = Atom(name: '_HomeControllerBase.ipSaved');
-
-  @override
-  String get ipSaved {
-    _$ipSavedAtom.reportRead();
-    return super.ipSaved;
-  }
-
-  @override
-  set ipSaved(String value) {
-    _$ipSavedAtom.reportWrite(value, super.ipSaved, () {
-      super.ipSaved = value;
-    });
-  }
-
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
 
@@ -140,9 +110,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
 email: ${email},
 errorEmail: ${errorEmail},
 password: ${password},
-errorPassword: ${errorPassword},
-ipAPItoSave: ${ipAPItoSave},
-ipSaved: ${ipSaved}
+errorPassword: ${errorPassword}
     ''';
   }
 }

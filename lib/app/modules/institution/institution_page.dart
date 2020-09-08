@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:getwidget/components/button/gf_button.dart';
-import 'package:getwidget/components/button/gf_icon_button.dart';
-import 'package:getwidget/size/gf_size.dart';
 import 'package:studentcare/app/app_controller.dart';
 import 'institution_controller.dart';
 

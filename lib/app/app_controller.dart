@@ -18,4 +18,10 @@ abstract class _AppControllerBase with Store {
 
   @observable
   String email;
+
+  @observable
+  String ipAPItoSave;
+
+  @observable
+  String ipSaved;
 }

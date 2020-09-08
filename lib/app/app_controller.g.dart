@@ -79,13 +79,45 @@ mixin _$AppController on _AppControllerBase, Store {
     });
   }
 
+  final _$ipAPItoSaveAtom = Atom(name: '_AppControllerBase.ipAPItoSave');
+
+  @override
+  String get ipAPItoSave {
+    _$ipAPItoSaveAtom.reportRead();
+    return super.ipAPItoSave;
+  }
+
+  @override
+  set ipAPItoSave(String value) {
+    _$ipAPItoSaveAtom.reportWrite(value, super.ipAPItoSave, () {
+      super.ipAPItoSave = value;
+    });
+  }
+
+  final _$ipSavedAtom = Atom(name: '_AppControllerBase.ipSaved');
+
+  @override
+  String get ipSaved {
+    _$ipSavedAtom.reportRead();
+    return super.ipSaved;
+  }
+
+  @override
+  set ipSaved(String value) {
+    _$ipSavedAtom.reportWrite(value, super.ipSaved, () {
+      super.ipSaved = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 isAdmin: ${isAdmin},
 id: ${id},
 name: ${name},
-email: ${email}
+email: ${email},
+ipAPItoSave: ${ipAPItoSave},
+ipSaved: ${ipSaved}
     ''';
   }
 }

@@ -19,18 +19,18 @@ final $StudentsController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$StudentsController on _StudentsControllerBase, Store {
-  final _$valueAtom = Atom(name: '_StudentsControllerBase.value');
+  final _$studentsAtom = Atom(name: '_StudentsControllerBase.students');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  ObservableList<Student> get students {
+    _$studentsAtom.reportRead();
+    return super.students;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set students(ObservableList<Student> value) {
+    _$studentsAtom.reportWrite(value, super.students, () {
+      super.students = value;
     });
   }
 
@@ -38,11 +38,11 @@ mixin _$StudentsController on _StudentsControllerBase, Store {
       ActionController(name: '_StudentsControllerBase');
 
   @override
-  void increment() {
+  void loadStudents() {
     final _$actionInfo = _$_StudentsControllerBaseActionController.startAction(
-        name: '_StudentsControllerBase.increment');
+        name: '_StudentsControllerBase.loadStudents');
     try {
-      return super.increment();
+      return super.loadStudents();
     } finally {
       _$_StudentsControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +51,7 @@ mixin _$StudentsController on _StudentsControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+students: ${students}
     ''';
   }
 }

@@ -2,14 +2,14 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:studentcare/app/modules/institution/students/students_controller.dart';
-import 'package:studentcare/app/modules/institution/institution_module.dart';
+import 'package:studentcare/app/modules/institution/students/students_module.dart';
 
 void main() {
-  initModule(InstitutionModule());
+  initModule(StudentsModule());
   // StudentsController students;
   //
   setUp(() {
-    //     students = InstitutionModule.to.get<StudentsController>();
+    //     students = StudentsModule.to.get<StudentsController>();
   });
 
   group('StudentsController Test', () {
