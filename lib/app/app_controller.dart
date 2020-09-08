@@ -8,10 +8,14 @@ class AppController = _AppControllerBase with _$AppController;
 
 abstract class _AppControllerBase with Store {
   @observable
-  int value = 0;
+  bool isAdmin;
 
-  @action
-  void increment() {
-    value++;
-  }
+  @observable
+  int id;
+
+  @observable
+  String name;
+
+  @observable
+  String email;
 }

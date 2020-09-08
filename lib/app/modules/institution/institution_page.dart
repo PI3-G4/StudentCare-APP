@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/components/button/gf_icon_button.dart';
 import 'package:getwidget/size/gf_size.dart';
+import 'package:studentcare/app/app_controller.dart';
 import 'institution_controller.dart';
 
 class InstitutionPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _InstitutionPageState
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
+        final homeController = Modular.get<AppController>();
         final drawer = Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -31,17 +33,11 @@ class _InstitutionPageState
                 decoration: BoxDecoration(color: Theme.of(context).accentColor),
                 child: Center(
                   child: Text(
-                    'Nome da instituição aqui',
+                    homeController.name,
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                 ),
               ),
-              ListTile(
-                leading: Icon(Icons.add),
-                title: Text('Adicionar Estudante'),
-                onTap: () {},
-              ),
-              Divider(),
               ListTile(
                 leading: Icon(Icons.settings),
                 title: Text('Configurações'),
@@ -73,14 +69,20 @@ class _InstitutionPageState
           onTap: (index) => {controller.selected = index},
         );
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('StudentCare'),
-          ),
-          body: controller.pages.elementAt(controller.selected),
-          bottomNavigationBar: bottomNavigationBar,
-          drawer: drawer,
+        final floatingActionButton = FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
         );
+
+        return Scaffold(
+            appBar: AppBar(
+              title: Text('StudentCare'),
+            ),
+            body: controller.pages.elementAt(controller.selected),
+            bottomNavigationBar: bottomNavigationBar,
+            drawer: drawer,
+            floatingActionButton:
+                controller.selected == 1 ? floatingActionButton : null);
       },
     );
   }

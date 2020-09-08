@@ -8,6 +8,7 @@ import 'package:requests/requests.dart';
 import 'package:studentcare/Components/Alert.dart';
 import 'package:studentcare/Util/Connection.dart';
 import 'package:studentcare/Util/MySharedPreferences.dart';
+import 'package:studentcare/app/app_controller.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -86,6 +87,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             focusNode: focusNodePassword,
           );
 
+          final homeController = Modular.get<AppController>();
+
           final buttonStudent = GFButton(
               onPressed: (controller.errorEmail == null &&
                       controller.errorPassword == null &&
@@ -117,6 +120,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           }
 
                           if (response.statusCode == 200) {
+                            final information = response.json();
+                            homeController.id = information['id'];
+                            homeController.name = information['name'];
+                            homeController.email = information['email'];
+                            homeController.isAdmin = false;
                             Modular.to.popAndPushNamed('/instituition');
                           } else if (response.statusCode == 400) {
                             showDialog(
@@ -188,6 +196,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           }
 
                           if (response.statusCode == 200) {
+                            final information = response.json();
+                            homeController.id = information['id'];
+                            homeController.name = information['name'];
+                            homeController.email = information['email'];
+                            homeController.isAdmin = true;
+
                             Modular.to.popAndPushNamed('/instituition');
                           } else if (response.statusCode == 400) {
                             showDialog(
