@@ -123,7 +123,7 @@ class _NewInstitutionPageState
                           var response;
                           try {
                             response = await Requests.post(
-                                'http://${homeController.ipSaved}. /institution',
+                                'http://${homeController.ipSaved}/institution',
                                 body: {
                                   'name': controller.name,
                                   'email': controller.email,

@@ -25,10 +25,8 @@ abstract class _StudentsControllerBase with Store {
 
     response.then((value) {
       if (value.statusCode == 200) {
-        print(value.json());
         students.clear();
         for (var item in value.json()) {
-          print(item);
           final student = Student();
           student.fromJson(item);
           students.add(student);

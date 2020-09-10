@@ -67,7 +67,9 @@ class _InstitutionPageState
         );
 
         final floatingActionButton = FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Modular.to.pushNamed('/instituition_new_student');
+          },
           child: Icon(Icons.add),
         );
 

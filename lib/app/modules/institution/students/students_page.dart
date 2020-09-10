@@ -22,16 +22,18 @@ class _StudentsPageState
     return Container(
       child: Observer(
         builder: (_) {
-          return Column(
-            children: controller.students.isNotEmpty
-                ? controller.students
-                    .map((element) => GFListTile(
-                          title: Text(element.name),
-                          subTitle: Text(element.email),
-                          icon: Icon(Icons.person),
-                        ))
-                    .toList()
-                : [Container()],
+          return SingleChildScrollView(
+            child: Column(
+              children: controller.students.isNotEmpty
+                  ? controller.students
+                      .map((element) => GFListTile(
+                            title: Text(element.name),
+                            subTitle: Text(element.email),
+                            icon: Icon(Icons.person),
+                          ))
+                      .toList()
+                  : [Container()],
+            ),
           );
         },
       ),
