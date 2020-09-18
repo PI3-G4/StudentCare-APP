@@ -125,7 +125,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                             homeController.name = information['name'];
                             homeController.email = information['email'];
                             homeController.isAdmin = false;
-                            Modular.to.popAndPushNamed('/instituition');
+                            Modular.to.popAndPushNamed('/student');
                           } else if (response.statusCode == 400) {
                             showDialog(
                                 context: context,

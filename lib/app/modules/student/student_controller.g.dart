@@ -19,18 +19,35 @@ final $StudentController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$StudentController on _StudentControllerBase, Store {
-  final _$valueAtom = Atom(name: '_StudentControllerBase.value');
+  final _$surveyToRespondAtom =
+      Atom(name: '_StudentControllerBase.surveyToRespond');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  ObservableList<Survey> get surveyToRespond {
+    _$surveyToRespondAtom.reportRead();
+    return super.surveyToRespond;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set surveyToRespond(ObservableList<Survey> value) {
+    _$surveyToRespondAtom.reportWrite(value, super.surveyToRespond, () {
+      super.surveyToRespond = value;
+    });
+  }
+
+  final _$surveyRespondedAtom =
+      Atom(name: '_StudentControllerBase.surveyResponded');
+
+  @override
+  ObservableList<Survey> get surveyResponded {
+    _$surveyRespondedAtom.reportRead();
+    return super.surveyResponded;
+  }
+
+  @override
+  set surveyResponded(ObservableList<Survey> value) {
+    _$surveyRespondedAtom.reportWrite(value, super.surveyResponded, () {
+      super.surveyResponded = value;
     });
   }
 
@@ -38,11 +55,11 @@ mixin _$StudentController on _StudentControllerBase, Store {
       ActionController(name: '_StudentControllerBase');
 
   @override
-  void increment() {
+  void loadSurvey() {
     final _$actionInfo = _$_StudentControllerBaseActionController.startAction(
-        name: '_StudentControllerBase.increment');
+        name: '_StudentControllerBase.loadSurvey');
     try {
-      return super.increment();
+      return super.loadSurvey();
     } finally {
       _$_StudentControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +68,8 @@ mixin _$StudentController on _StudentControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+surveyToRespond: ${surveyToRespond},
+surveyResponded: ${surveyResponded}
     ''';
   }
 }

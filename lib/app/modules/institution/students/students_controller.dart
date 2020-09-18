@@ -2,7 +2,7 @@ import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:requests/requests.dart';
 import 'package:studentcare/Util/MySharedPreferences.dart';
-import 'package:studentcare/app/modules/institution/students/Student.dart';
+import 'package:studentcare/model/Student.dart';
 
 import '../../../app_controller.dart';
 

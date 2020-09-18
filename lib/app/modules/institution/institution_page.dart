@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:studentcare/app/app_controller.dart';
@@ -48,7 +49,9 @@ class _InstitutionPageState
               ListTile(
                 leading: Icon(Icons.exit_to_app),
                 title: Text('Sair'),
-                onTap: () {},
+                onTap: () {
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                },
               ),
             ],
           ),
