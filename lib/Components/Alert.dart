@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:getwidget/components/alert/gf_alert.dart';
 import 'package:getwidget/components/button/gf_button.dart';
-import 'package:getwidget/components/floating_widget/gf_floating_widget.dart';
 import 'package:getwidget/getwidget.dart';
 
 class Alert extends StatelessWidget {

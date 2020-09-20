@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:getwidget/colors/gf_color.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
+import 'package:studentcare/Components/survey/survey_widget.dart';
 import '../../app_controller.dart';
 import 'student_controller.dart';
 
@@ -83,10 +84,19 @@ class _StudentPageState extends ModularState<StudentPage, StudentController> {
               Column(
                 children: controller.surveyToRespond.isNotEmpty
                     ? controller.surveyToRespond
-                        .map((element) => GFListTile(
-                              title: Text(element.name),
-                              avatar: Icon(Icons.check_circle_outline),
-                              color: GFColors.WARNING,
+                        .map((element) => GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    useSafeArea: true,
+                                    builder: (_) =>
+                                        SurveyWidget(survey: element));
+                              },
+                              child: GFListTile(
+                                title: Text(element.name),
+                                avatar: Icon(Icons.check_circle_outline),
+                                color: GFColors.WARNING,
+                              ),
                             ))
                         .toList()
                     : [Container()],
@@ -102,10 +112,13 @@ class _StudentPageState extends ModularState<StudentPage, StudentController> {
               Column(
                 children: controller.surveyResponded.isNotEmpty
                     ? controller.surveyResponded
-                        .map((element) => GFListTile(
-                              title: Text(element.name),
-                              avatar: Icon(Icons.check_circle),
-                              color: GFColors.SUCCESS,
+                        .map((element) => GestureDetector(
+                              onTap: () {},
+                              child: GFListTile(
+                                title: Text(element.name),
+                                avatar: Icon(Icons.check_circle),
+                                color: GFColors.SUCCESS,
+                              ),
                             ))
                         .toList()
                     : [Container()],

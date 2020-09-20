@@ -1,16 +1,19 @@
 import 'dart:convert';
 
+import 'package:studentcare/model/Question.dart';
+
 class Survey {
   int id;
   String name;
-  Map<dynamic, dynamic> data;
-
-  Survey({this.id, this.name, this.data});
+  List<Question> questions = [];
 
   fromJson(Map<String, dynamic> data) {
     this.id = data['id'];
     this.name = data['name'];
-    this.data = jsonDecode(data['survey']);
+    final preQuestions = jsonDecode(data['survey'])['questions'];
+    for (var preQuestion in preQuestions) {
+      this.questions.add(Question.fromJson(preQuestion));
+    }
   }
 
   bool equal(Survey other) {
