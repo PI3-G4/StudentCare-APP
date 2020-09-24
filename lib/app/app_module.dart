@@ -2,12 +2,10 @@ import '../Components/survey/surveyItemStar/survey_item_star_controller.dart';
 import '../Components/survey/surveyItemRange/survey_item_range_controller.dart';
 import '../Components/survey/surveyItemFree/survey_item_free_controller.dart';
 import '../Components/survey/surveyItemMultiple/survey_item_multiple_controller.dart';
-import '../Components/survey/surveyItemUnique/survey_item_unique_controller.dart';
 import '../Components/survey/survey_controller.dart';
 import 'package:studentcare/app/modules/institution/institution_module.dart';
 import 'package:studentcare/app/modules/institution_new_student/institution_new_student_module.dart';
 import 'package:studentcare/app/modules/new_institution/new_institution_module.dart';
-import 'package:studentcare/app/modules/new_institution/new_institution_page.dart';
 import 'package:studentcare/app/modules/student/student_module.dart';
 import 'package:studentcare/app/modules/student_research/student_research_module.dart';
 
@@ -24,7 +22,6 @@ class AppModule extends MainModule {
         $SurveyItemRangeController,
         $SurveyItemFreeController,
         $SurveyItemMultipleController,
-        $SurveyItemUniqueController,
         $SurveyController,
         $AppController,
       ];

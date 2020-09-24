@@ -19,35 +19,18 @@ final $StudentController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$StudentController on _StudentControllerBase, Store {
-  final _$surveyToRespondAtom =
-      Atom(name: '_StudentControllerBase.surveyToRespond');
+  final _$surveysAtom = Atom(name: '_StudentControllerBase.surveys');
 
   @override
-  ObservableList<Survey> get surveyToRespond {
-    _$surveyToRespondAtom.reportRead();
-    return super.surveyToRespond;
+  ObservableList<Survey> get surveys {
+    _$surveysAtom.reportRead();
+    return super.surveys;
   }
 
   @override
-  set surveyToRespond(ObservableList<Survey> value) {
-    _$surveyToRespondAtom.reportWrite(value, super.surveyToRespond, () {
-      super.surveyToRespond = value;
-    });
-  }
-
-  final _$surveyRespondedAtom =
-      Atom(name: '_StudentControllerBase.surveyResponded');
-
-  @override
-  ObservableList<Survey> get surveyResponded {
-    _$surveyRespondedAtom.reportRead();
-    return super.surveyResponded;
-  }
-
-  @override
-  set surveyResponded(ObservableList<Survey> value) {
-    _$surveyRespondedAtom.reportWrite(value, super.surveyResponded, () {
-      super.surveyResponded = value;
+  set surveys(ObservableList<Survey> value) {
+    _$surveysAtom.reportWrite(value, super.surveys, () {
+      super.surveys = value;
     });
   }
 
@@ -68,8 +51,7 @@ mixin _$StudentController on _StudentControllerBase, Store {
   @override
   String toString() {
     return '''
-surveyToRespond: ${surveyToRespond},
-surveyResponded: ${surveyResponded}
+surveys: ${surveys}
     ''';
   }
 }

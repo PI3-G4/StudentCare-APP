@@ -6,6 +6,7 @@ class Survey {
   int id;
   String name;
   List<Question> questions = [];
+  bool done = false;
 
   fromJson(Map<String, dynamic> data) {
     this.id = data['id'];

@@ -77,13 +77,13 @@ class _StudentPageState extends ModularState<StudentPage, StudentController> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
                 child: Text(
-                  'Pesquisas não respondidas',
+                  'Pesquisas',
                   style: textStyle,
                 ),
               ),
               Column(
-                children: controller.surveyToRespond.isNotEmpty
-                    ? controller.surveyToRespond
+                children: controller.surveys.isNotEmpty
+                    ? controller.surveys
                         .map((element) => GestureDetector(
                               onTap: () {
                                 showDialog(
@@ -94,35 +94,17 @@ class _StudentPageState extends ModularState<StudentPage, StudentController> {
                               },
                               child: GFListTile(
                                 title: Text(element.name),
-                                avatar: Icon(Icons.check_circle_outline),
-                                color: GFColors.WARNING,
+                                avatar: element.done
+                                    ? Icon(Icons.check_circle)
+                                    : Icon(Icons.check_circle_outline),
+                                color: element.done
+                                    ? GFColors.SUCCESS
+                                    : GFColors.WARNING,
                               ),
                             ))
                         .toList()
                     : [Container()],
               ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
-                child: Text(
-                  'Pesquisas já respondidas',
-                  style: textStyle,
-                ),
-              ),
-              Column(
-                children: controller.surveyResponded.isNotEmpty
-                    ? controller.surveyResponded
-                        .map((element) => GestureDetector(
-                              onTap: () {},
-                              child: GFListTile(
-                                title: Text(element.name),
-                                avatar: Icon(Icons.check_circle),
-                                color: GFColors.SUCCESS,
-                              ),
-                            ))
-                        .toList()
-                    : [Container()],
-              )
             ]),
           ),
         ),

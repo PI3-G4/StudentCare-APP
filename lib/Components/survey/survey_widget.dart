@@ -8,17 +8,29 @@ import 'package:studentcare/app/app_controller.dart';
 import 'package:studentcare/app/modules/student/student_controller.dart';
 import 'package:studentcare/model/Survey.dart';
 
-class SurveyWidget extends StatelessWidget {
+class SurveyWidget extends StatefulWidget {
   final Survey survey;
   SurveyWidget({this.survey});
 
+  @override
+  _SurveyWidgetState createState() => _SurveyWidgetState();
+}
+
+class _SurveyWidgetState extends State<SurveyWidget> {
   final surveyController = Modular.get<SurveyController>();
   final appController = Modular.get<AppController>();
   final studentController = Modular.get<StudentController>();
 
   @override
+  void initState() {
+    surveyController.currentWidget = 0;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    surveyController.generateWidgets(survey);
+    surveyController.generateWidgets(widget.survey);
+
     return AlertDialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -32,7 +44,7 @@ class SurveyWidget extends StatelessWidget {
                 backgroundColor: Colors.black26,
                 progressBarColor: GFColors.SUCCESS,
                 percentage: (((surveyController.currentWidget + 1) * 100) /
-                        studentController.surveyToRespond.length) /
+                        surveyController.widgets.length) /
                     100,
               ),
               surveyController.widgets[surveyController.currentWidget],

@@ -49,6 +49,28 @@ mixin _$SurveyController on _SurveyControllerBase, Store {
     });
   }
 
+  final _$surveyAtom = Atom(name: '_SurveyControllerBase.survey');
+
+  @override
+  Survey get survey {
+    _$surveyAtom.reportRead();
+    return super.survey;
+  }
+
+  @override
+  set survey(Survey value) {
+    _$surveyAtom.reportWrite(value, super.survey, () {
+      super.survey = value;
+    });
+  }
+
+  final _$sendDataAsyncAction = AsyncAction('_SurveyControllerBase.sendData');
+
+  @override
+  Future sendData() {
+    return _$sendDataAsyncAction.run(() => super.sendData());
+  }
+
   final _$_SurveyControllerBaseActionController =
       ActionController(name: '_SurveyControllerBase');
 
@@ -78,7 +100,8 @@ mixin _$SurveyController on _SurveyControllerBase, Store {
   String toString() {
     return '''
 currentWidget: ${currentWidget},
-widgets: ${widgets}
+widgets: ${widgets},
+survey: ${survey}
     ''';
   }
 }
