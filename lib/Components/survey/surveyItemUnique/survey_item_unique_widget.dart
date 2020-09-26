@@ -20,8 +20,8 @@ class _SurveyItemUniqueWidgetState extends State<SurveyItemUniqueWidget> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        this._choose =
-            widget.question.answer == null ? "" : widget.question.answer;
+        //this._choose =
+        //    widget.question.answer == null ? "" : widget.question.answer;
         final surveyController = Modular.get<SurveyController>();
         final continueButton = GFButton(
           onPressed: _choose.isNotEmpty || !this.widget.question.obligatory

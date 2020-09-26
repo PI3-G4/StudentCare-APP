@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:requests/requests.dart';
 import 'package:studentcare/Components/survey/surveyFinal/survey_final_widget.dart';
+import 'package:studentcare/Components/survey/surveyItemMultiple/survey_item_multiple_widget.dart';
 import 'package:studentcare/Components/survey/surveyItemUnique/survey_item_unique_widget.dart';
 import 'package:studentcare/app/app_controller.dart';
 import 'package:studentcare/model/Survey.dart';
@@ -101,7 +102,19 @@ abstract class _SurveyControllerBase with Store {
           ),
         );
       } else if (question.type == 2) {
+        widgets.add(
+          SurveyItemMultipleWidget(
+            question: question,
+            limit: 2,
+          ),
+        );
       } else if (question.type == 3) {
+        widgets.add(
+          SurveyItemMultipleWidget(
+            question: question,
+            limit: 3,
+          ),
+        );
       } else if (question.type == 4) {
       } else if (question.type == 5) {
       } else if (question.type == 6) {}
