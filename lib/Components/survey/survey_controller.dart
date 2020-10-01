@@ -7,6 +7,7 @@ import 'package:requests/requests.dart';
 import 'package:studentcare/Components/survey/surveyFinal/survey_final_widget.dart';
 import 'package:studentcare/Components/survey/surveyItemFree/survey_item_free_widget.dart';
 import 'package:studentcare/Components/survey/surveyItemMultiple/survey_item_multiple_widget.dart';
+import 'package:studentcare/Components/survey/surveyItemRange/survey_item_range_widget.dart';
 import 'package:studentcare/Components/survey/surveyItemUnique/survey_item_unique_widget.dart';
 import 'package:studentcare/app/app_controller.dart';
 import 'package:studentcare/model/Survey.dart';
@@ -68,7 +69,7 @@ abstract class _SurveyControllerBase with Store {
               //'json_data': "{\"questions\":${jsonEncode(survey.questions)}}",
             },
             bodyEncoding: RequestBodyEncoding.JSON);
-        if (response.statusCode == 201) {
+        if (response.statusCode >= 200 && response.statusCode < 300) {
           Modular.to.showDialog(
               barrierDismissible: true,
               builder: (_) => Alert(
@@ -119,6 +120,9 @@ abstract class _SurveyControllerBase with Store {
       } else if (question.type == 4) {
         widgets.add(SurveyItemFreeWidget(question: question));
       } else if (question.type == 5) {
+        widgets.add(SurveyItemRangeWidget(
+          question: question,
+        ));
       } else if (question.type == 6) {}
     }
     widgets.add(SurveyFinalWidget());

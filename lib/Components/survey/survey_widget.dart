@@ -40,6 +40,8 @@ class _SurveyWidgetState extends State<SurveyWidget> {
             alignment: WrapAlignment.center,
             children: [
               GFProgressBar(
+                animation: true,
+                animateFromLastPercentage: true,
                 lineHeight: 20,
                 backgroundColor: Colors.black26,
                 progressBarColor: GFColors.SUCCESS,

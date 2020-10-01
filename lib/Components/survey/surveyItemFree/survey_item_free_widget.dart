@@ -14,9 +14,13 @@ class SurveyItemFreeWidget extends StatefulWidget {
 
 class _SurveyItemFreeWidgetState extends State<SurveyItemFreeWidget> {
   var _choose;
+  final textEditingController = TextEditingController();
   @override
   void initState() {
-    _choose = widget.question.answer == null ? '' : widget.question.answer;
+    textEditingController.text =
+        widget.question.answer == null ? '' : widget.question.answer;
+    _choose = textEditingController.text;
+    print('');
     super.initState();
   }
 
@@ -37,6 +41,7 @@ class _SurveyItemFreeWidgetState extends State<SurveyItemFreeWidget> {
     );
 
     final response = TextField(
+      controller: textEditingController,
       onChanged: (value) {
         setState(() {
           _choose = value;
