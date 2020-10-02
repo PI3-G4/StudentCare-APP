@@ -8,6 +8,7 @@ import 'package:studentcare/Components/survey/surveyFinal/survey_final_widget.da
 import 'package:studentcare/Components/survey/surveyItemFree/survey_item_free_widget.dart';
 import 'package:studentcare/Components/survey/surveyItemMultiple/survey_item_multiple_widget.dart';
 import 'package:studentcare/Components/survey/surveyItemRange/survey_item_range_widget.dart';
+import 'package:studentcare/Components/survey/surveyItemStar/survey_item_star_widget.dart';
 import 'package:studentcare/Components/survey/surveyItemUnique/survey_item_unique_widget.dart';
 import 'package:studentcare/app/app_controller.dart';
 import 'package:studentcare/model/Survey.dart';
@@ -123,7 +124,11 @@ abstract class _SurveyControllerBase with Store {
         widgets.add(SurveyItemRangeWidget(
           question: question,
         ));
-      } else if (question.type == 6) {}
+      } else if (question.type == 6) {
+        widgets.add(SurveyItemStarWidget(
+          question: question,
+        ));
+      }
     }
     widgets.add(SurveyFinalWidget());
   }
