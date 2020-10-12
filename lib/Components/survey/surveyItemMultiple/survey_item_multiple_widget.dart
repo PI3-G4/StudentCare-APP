@@ -11,7 +11,7 @@ import '../survey_controller.dart';
 class SurveyItemMultipleWidget extends StatefulWidget {
   final Question question;
   final int limit;
-  SurveyItemMultipleWidget({this.question, this.limit});
+  SurveyItemMultipleWidget({this.question, this.limit, Key key}) : super(key: key);
   @override
   _SurveyItemMultipleWidgetState createState() =>
       _SurveyItemMultipleWidgetState();
@@ -24,10 +24,12 @@ class _SurveyItemMultipleWidgetState extends State<SurveyItemMultipleWidget> {
   @override
   void initState() {
     _state.clear();
-    _choices.clear();
+    if (this.widget.question.answer != null) {
+      _choices = jsonDecode(this.widget.question.answer);
+    }
     this.widget.question.data.forEach((element) {
       final item = ItemMultiple(title: element);
-      if (_state.contains(element)) {
+      if (_choices.contains(element)) {
         item.value = true;
       }
       _state.add(item);

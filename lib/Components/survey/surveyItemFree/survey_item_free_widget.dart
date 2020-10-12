@@ -7,7 +7,7 @@ import '../survey_controller.dart';
 
 class SurveyItemFreeWidget extends StatefulWidget {
   final Question question;
-  SurveyItemFreeWidget({this.question});
+  SurveyItemFreeWidget({this.question, Key key}) : super(key: key);
   @override
   _SurveyItemFreeWidgetState createState() => _SurveyItemFreeWidgetState();
 }

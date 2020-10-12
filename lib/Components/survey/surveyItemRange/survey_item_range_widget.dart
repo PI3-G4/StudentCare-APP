@@ -9,13 +9,14 @@ import '../survey_controller.dart';
 
 class SurveyItemRangeWidget extends StatefulWidget {
   final Question question;
-  SurveyItemRangeWidget({this.question});
+  SurveyItemRangeWidget({this.question, Key key}) : super(key: key);
   @override
   _SurveyItemRangeWidgetState createState() => _SurveyItemRangeWidgetState();
 }
 
 class _SurveyItemRangeWidgetState extends State<SurveyItemRangeWidget> {
   final _range = [];
+  var _canBeInicial;
   var _choose = "";
 
   @override
@@ -23,6 +24,12 @@ class _SurveyItemRangeWidgetState extends State<SurveyItemRangeWidget> {
     this.widget.question.data.forEach((element) {
       _range.add(element);
     });
+    if (this.widget.question.answer != null) {
+      this._canBeInicial = double.parse(this.widget.question.answer);
+      this._choose = this._canBeInicial.ceil().toString();
+    } else {
+      _canBeInicial = double.parse(this._range.first);
+    }
     super.initState();
   }
 
@@ -45,6 +52,7 @@ class _SurveyItemRangeWidgetState extends State<SurveyItemRangeWidget> {
     final sleek = SleekCircularSlider(
       min: double.parse(_range.first),
       max: double.parse(_range.last),
+      initialValue: this._canBeInicial,
       onChangeEnd: (value) {
         setState(() {
           _choose = value.ceil().toString();

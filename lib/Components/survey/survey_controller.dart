@@ -11,6 +11,7 @@ import 'package:studentcare/Components/survey/surveyItemRange/survey_item_range_
 import 'package:studentcare/Components/survey/surveyItemStar/survey_item_star_widget.dart';
 import 'package:studentcare/Components/survey/surveyItemUnique/survey_item_unique_widget.dart';
 import 'package:studentcare/app/app_controller.dart';
+import 'package:studentcare/model/Question.dart';
 import 'package:studentcare/model/Survey.dart';
 
 import '../Alert.dart';
@@ -47,13 +48,6 @@ abstract class _SurveyControllerBase with Store {
   @action
   sendData() async {
     if (survey != null) {
-      for (var i = 0; i < widgets.length; i++) {
-        final widget = widgets.elementAt(i);
-        if (widget is SurveyItemUniqueWidget) {
-          survey.questions.elementAt(i).answer = widget.question.answer;
-        }
-      }
-
       final appController = Modular.get<AppController>();
 
       try {
@@ -96,12 +90,16 @@ abstract class _SurveyControllerBase with Store {
 
   void generateWidgets(Survey survey) {
     widgets.clear();
+    for (Question question in survey.questions) {
+      question.answer = null;
+    }
     this.survey = survey;
     for (var question in survey.questions) {
       if (question.type == 1) {
         widgets.add(
           SurveyItemUniqueWidget(
             question: question,
+            key: UniqueKey(),
           ),
         );
       } else if (question.type == 2) {
@@ -109,6 +107,7 @@ abstract class _SurveyControllerBase with Store {
           SurveyItemMultipleWidget(
             question: question,
             limit: 2,
+            key: UniqueKey(),
           ),
         );
       } else if (question.type == 3) {
@@ -116,17 +115,23 @@ abstract class _SurveyControllerBase with Store {
           SurveyItemMultipleWidget(
             question: question,
             limit: 3,
+            key: UniqueKey(),
           ),
         );
       } else if (question.type == 4) {
-        widgets.add(SurveyItemFreeWidget(question: question));
+        widgets.add(SurveyItemFreeWidget(
+          question: question,
+          key: UniqueKey(),
+        ));
       } else if (question.type == 5) {
         widgets.add(SurveyItemRangeWidget(
           question: question,
+          key: UniqueKey(),
         ));
       } else if (question.type == 6) {
         widgets.add(SurveyItemStarWidget(
           question: question,
+          key: UniqueKey(),
         ));
       }
     }

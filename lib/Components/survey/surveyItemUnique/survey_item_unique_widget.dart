@@ -7,7 +7,7 @@ import 'package:studentcare/model/Question.dart';
 
 class SurveyItemUniqueWidget extends StatefulWidget {
   final Question question;
-  SurveyItemUniqueWidget({this.question});
+  SurveyItemUniqueWidget({this.question, Key key}) : super(key: key);
 
   @override
   _SurveyItemUniqueWidgetState createState() => _SurveyItemUniqueWidgetState();
@@ -18,6 +18,9 @@ class _SurveyItemUniqueWidgetState extends State<SurveyItemUniqueWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (this.widget.question.answer != null) {
+      this._choose = this.widget.question.answer;
+    }
     return Observer(
       builder: (_) {
         //this._choose =

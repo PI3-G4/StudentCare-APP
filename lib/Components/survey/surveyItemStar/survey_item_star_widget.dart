@@ -9,7 +9,7 @@ import '../survey_controller.dart';
 
 class SurveyItemStarWidget extends StatefulWidget {
   final Question question;
-  SurveyItemStarWidget({this.question});
+  SurveyItemStarWidget({this.question, Key key}) : super(key: key);
   @override
   _SurveyItemStarWidgetState createState() => _SurveyItemStarWidgetState();
 }
@@ -25,6 +25,7 @@ class _SurveyItemStarWidgetState extends State<SurveyItemStarWidget> {
       this.widget.question.answer = 3.0.toString();
     } else {
       _choose = double.parse(this.widget.question.answer);
+      _textController.text = this.widget.question.answer;
     }
     super.initState();
   }
