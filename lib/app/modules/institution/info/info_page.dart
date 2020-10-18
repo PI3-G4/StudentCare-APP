@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:studentcare/model/InfoStudent.dart';
 import 'info_controller.dart';
 
 class InfoPage extends StatefulWidget {
@@ -15,13 +17,60 @@ class _InfoPageState extends ModularState<InfoPage, InfoController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[],
+    controller.loadInfo();
+    return Container(
+      child: Observer(
+        builder: (_) {
+          return SingleChildScrollView(
+            child: Column(
+              children: controller.surveys.isNotEmpty
+                  ? controller.surveys.map((InfoSurvey element) {
+                      return Column(
+                        children: [
+                          Text(element.name),
+                          DataTable(
+                              columns: [
+                                DataColumn(label: Text('Nome')),
+                                DataColumn(label: Text('Classificação'))
+                              ],
+                              rows: element.items
+                                  .map((InfoStudent e) => DataRow(cells: [
+                                        DataCell(Text(e.name)),
+                                        DataCell(Text(e.score.toString()))
+                                      ]))
+                                  .toList())
+                        ],
+                      );
+                    }).toList()
+                  : [Container()],
+            ),
+          );
+        },
       ),
     );
   }
 }
+
+/*controller.surveys
+                      .map(
+                        (InfoSurvey element) => DataTable(
+                          columns: [
+                            DataColumn(label: Text('Nome')),
+                            DataColumn(label: Text('Classificação'))
+                          ],
+                          rows: [
+                            DataRow(
+                              cells: element.items
+                                  .map(
+                                    (InfoStudent element2) => DataCell(
+                                      Text(element2.name),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ],
+                        ),
+                      )
+                      .toList() 
+
+  */

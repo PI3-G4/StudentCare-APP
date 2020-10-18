@@ -19,18 +19,18 @@ final $InfoController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$InfoController on _InfoControllerBase, Store {
-  final _$valueAtom = Atom(name: '_InfoControllerBase.value');
+  final _$surveysAtom = Atom(name: '_InfoControllerBase.surveys');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  ObservableList<InfoSurvey> get surveys {
+    _$surveysAtom.reportRead();
+    return super.surveys;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set surveys(ObservableList<InfoSurvey> value) {
+    _$surveysAtom.reportWrite(value, super.surveys, () {
+      super.surveys = value;
     });
   }
 
@@ -38,11 +38,11 @@ mixin _$InfoController on _InfoControllerBase, Store {
       ActionController(name: '_InfoControllerBase');
 
   @override
-  void increment() {
+  void loadInfo() {
     final _$actionInfo = _$_InfoControllerBaseActionController.startAction(
-        name: '_InfoControllerBase.increment');
+        name: '_InfoControllerBase.loadInfo');
     try {
-      return super.increment();
+      return super.loadInfo();
     } finally {
       _$_InfoControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +51,7 @@ mixin _$InfoController on _InfoControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+surveys: ${surveys}
     ''';
   }
 }
